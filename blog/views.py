@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404 # Vérifie bien cet import !
 from .models import Article
+from .forms import ArticleForm # Ajoute l'import du formulaire
 
 # 1. La liste
 def liste_articles(request):
@@ -10,3 +11,12 @@ def liste_articles(request):
 def detail_article(request, id):
     article = get_object_or_404(Article, id=id)
     return render(request, 'blog/detail.html', {'article': article})
+def nouvel_article(request):
+    if request.method == "POST":
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_articles')
+    else:
+        form = ArticleForm()
+    return render(request, 'blog/formulaire.html', {'form': form})

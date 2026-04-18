@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="bg-white p-5 rounded shadow">
+        <h1>Écrire un nouvel article</h1>
+        <form method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">{{ form.as_p }}</div>
+            <button type="submit" class="btn btn-success">Publier l'article</button>
+            <a href="{% url 'liste_articles' %}" class="btn btn-link">Annuler</a>
+        </form>
+    </div>
+{% endblock %}
